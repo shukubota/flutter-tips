@@ -4,6 +4,11 @@ void main() {
   runApp(FlutterTips());
 }
 
+final GlobalKey<NavigatorState> rootNavigationkey =
+    new GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> homeNavigationkey =
+    new GlobalKey<NavigatorState>();
+
 class FlutterTips extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -14,7 +19,9 @@ class FlutterTips extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: router,
+      initialRoute: '/',
+      navigatorKey: rootNavigationkey,
     );
   }
 }
@@ -29,39 +36,120 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  int _tabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            title: Text('progress'),
+          ),
+        ],
+        currentIndex: _tabIndex,
+        onTap: (index) {
+          setState(() {
+            _tabIndex = index;
+          });
+        },
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+      body: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Offstage(
+            offstage: _tabIndex != 0,
+            child: HomeNavigator(),
+          ),
+          Offstage(
+            offstage: _tabIndex != 1,
+            child: ProgressMenu(),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
+class HomeNavigator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      routes: homeRouter,
+      initialRoute: '/homeTab/menu',
+      navigatorKey: homeNavigationkey,
+    );
+  }
+}
+
+class HomeMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('homemenu')),
+      body: Column(
+        children: [
+          RaisedButton(
+            onPressed: () => rootNavigationkey.currentState.pushNamed('/login'),
+            child: Text('go to login'),
+          ),
+          RaisedButton(
+            onPressed: () =>
+                homeNavigationkey.currentState.pushNamed('/homeTab/submenu'),
+            child: Text('go to submenu'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeSubMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('homesubmenu')),
+      body: Center(
+        child: Text('homeSubmenu'),
+      ),
+    );
+  }
+}
+
+class ProgressMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('ProgressMenu'),
+    );
+  }
+}
+
+class Login extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login'),
+      ),
+      body: Center(
+        child: Text('Login'),
+      ),
+    );
+  }
+}
+
+Map<String, WidgetBuilder> router = {
+  '/': (BuildContext context) => MyHomePage(title: '/'),
+  '/login': (BuildContext context) => Login(),
+};
+
+Map<String, WidgetBuilder> homeRouter = {
+  '/homeTab/menu': (BuildContext context) => HomeMenu(),
+  '/homeTab/submenu': (BuildContext context) => HomeSubMenu(),
+};
