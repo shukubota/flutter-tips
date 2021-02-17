@@ -79,11 +79,30 @@ class _MyHomePageState extends State<MyHomePage> {
 class HomeNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: homeRouter,
+    return Navigator(
       initialRoute: '/homeTab/menu',
-      navigatorKey: homeNavigationkey,
+      onGenerateRoute: (RouteSettings settings) {
+        print(settings);
+        WidgetBuilder builder;
+        switch (settings.name) {
+          case '/homeTab/submenu':
+            builder = (BuildContext _) => HomeSubMenu();
+            break;
+          case '/homeTab/menu':
+            builder = (BuildContext _) => HomeMenu();
+            break;
+          default:
+            builder = (BuildContext _) => HomeMenu();
+        }
+        return MaterialPageRoute(builder: builder, settings: settings);
+      },
+      key: homeNavigationkey,
     );
+    // return MaterialApp(
+    //   routes: homeRouter,
+    //   initialRoute: '/homeTab/menu',
+    //   navigatorKey: homeNavigationkey,
+    // );
   }
 }
 
@@ -144,6 +163,7 @@ class Login extends StatelessWidget {
   }
 }
 
+// routing
 Map<String, WidgetBuilder> router = {
   '/': (BuildContext context) => MyHomePage(title: '/'),
   '/login': (BuildContext context) => Login(),
