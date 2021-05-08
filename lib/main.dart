@@ -88,21 +88,24 @@ class HomeNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      initialRoute: '/homeTab/menu',
+      initialRoute: 'homeTab-menu',
       onGenerateRoute: (RouteSettings settings) {
         print(settings);
+        print('setting');
+        print(settings.name);
         WidgetBuilder builder;
+        builder = (BuildContext _) => HomeMenu();
         switch (settings.name) {
-          case '/homeTab/submenu':
+          case 'homeTab-submenu':
             builder = (BuildContext _) => HomeSubMenu();
-            break;
-          case '/homeTab/menu':
+            return MaterialPageRoute(builder: builder, settings: settings);
+          case 'homeTab-menu':
             builder = (BuildContext _) => HomeMenu();
-            break;
+            return MaterialPageRoute(builder: builder, settings: settings);
+          // break;
           default:
-            builder = (BuildContext _) => HomeMenu();
+            throw Exception();
         }
-        return MaterialPageRoute(builder: builder, settings: settings);
       },
       key: homeNavigationkey,
     );
@@ -122,7 +125,7 @@ class HomeMenu extends StatelessWidget {
           ),
           RaisedButton(
             onPressed: () =>
-                homeNavigationkey.currentState.pushNamed('/homeTab/submenu'),
+                homeNavigationkey.currentState.pushNamed('homeTab-submenu'),
             child: Text('to submenu'),
           ),
         ],
@@ -173,6 +176,6 @@ Map<String, WidgetBuilder> router = {
 };
 
 Map<String, WidgetBuilder> homeRouter = {
-  '/homeTab/menu': (BuildContext context) => HomeMenu(),
-  '/homeTab/submenu': (BuildContext context) => HomeSubMenu(),
+  'homeTab-menu': (BuildContext context) => HomeMenu(),
+  'homeTab-submenu': (BuildContext context) => HomeSubMenu(),
 };
