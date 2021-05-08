@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final helloWorldProvider = Provider((_) => 'Hello world');
 
 void main() {
-  runApp(FlutterTips());
+  runApp(ProviderScope(child: FlutterTips()));
 }
 
 final GlobalKey<NavigatorState> rootNavigationkey =
@@ -9,10 +13,14 @@ final GlobalKey<NavigatorState> rootNavigationkey =
 final GlobalKey<NavigatorState> homeNavigationkey =
     new GlobalKey<NavigatorState>();
 
-class FlutterTips extends StatelessWidget {
-  // This widget is the root of your application.
+class FlutterTips extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final String value = useProvider(helloWorldProvider);
+    useEffect(() {
+      print('useEffect');
+      return null;
+    });
     return MaterialApp(
       title: 'Home',
       theme: ThemeData(
@@ -98,11 +106,6 @@ class HomeNavigator extends StatelessWidget {
       },
       key: homeNavigationkey,
     );
-    // return MaterialApp(
-    //   routes: homeRouter,
-    //   initialRoute: '/homeTab/menu',
-    //   navigatorKey: homeNavigationkey,
-    // );
   }
 }
 
@@ -115,12 +118,12 @@ class HomeMenu extends StatelessWidget {
         children: [
           RaisedButton(
             onPressed: () => rootNavigationkey.currentState.pushNamed('/login'),
-            child: Text('go to login'),
+            child: Text('to login'),
           ),
           RaisedButton(
             onPressed: () =>
                 homeNavigationkey.currentState.pushNamed('/homeTab/submenu'),
-            child: Text('go to submenu'),
+            child: Text('to submenu'),
           ),
         ],
       ),

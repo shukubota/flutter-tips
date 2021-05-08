@@ -56,8 +56,38 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_hooks",
+      "rootUri": "file:///Users/shukubota/.pub-cache/hosted/pub.dartlang.org/flutter_hooks-0.16.0-nullsafety.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_riverpod",
+      "rootUri": "file:///Users/shukubota/.pub-cache/hosted/pub.dartlang.org/flutter_riverpod-0.13.0-nullsafety.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///Users/shukubota/private/flutter/packages/flutter_test",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "freezed_annotation",
+      "rootUri": "file:///Users/shukubota/.pub-cache/hosted/pub.dartlang.org/freezed_annotation-0.13.0-nullsafety.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "hooks_riverpod",
+      "rootUri": "file:///Users/shukubota/.pub-cache/hosted/pub.dartlang.org/hooks_riverpod-0.13.0-nullsafety.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///Users/shukubota/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -80,6 +110,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "riverpod",
+      "rootUri": "file:///Users/shukubota/.pub-cache/hosted/pub.dartlang.org/riverpod-0.13.0-nullsafety.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/shukubota/private/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -94,6 +130,12 @@
     {
       "name": "stack_trace",
       "rootUri": "file:///Users/shukubota/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0-nullsafety.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "state_notifier",
+      "rootUri": "file:///Users/shukubota/.pub-cache/hosted/pub.dartlang.org/state_notifier-0.7.0-nullsafety.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -140,7 +182,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-02-04T09:33:33.441586Z",
+  "generated": "2021-02-17T08:08:32.039857Z",
   "generator": "pub",
   "generatorVersion": "2.12.0-282.0.dev"
 }
