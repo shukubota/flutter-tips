@@ -1,3 +1,4 @@
-import 'package:hooks_riverpod/all.dart';
+import 'package:flutter_tips/viewModels/todo.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final helloProvider = Provider((_) => 'hello');
+final todoListProvider = ChangeNotifierProvider((ref) => TodoViewModel());

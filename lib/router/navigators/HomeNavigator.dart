@@ -15,7 +15,6 @@ class HomeNavigator extends StatelessWidget {
       initialRoute: 'homeTab-menu',
       onGenerateRoute: (RouteSettings settings) {
         WidgetBuilder builder;
-        builder = (BuildContext _) => HomeMenu();
         switch (settings.name) {
           case 'homeTab-submenu':
             builder = (BuildContext _) => HomeSubMenu();

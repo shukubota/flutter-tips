@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_tips/router/navigators/HomeNavigator.dart';
-import 'package:flutter_tips/state/state.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:flutter_tips/components/TodoList.dart';
 
 import '../main.dart';
 
@@ -13,22 +11,37 @@ final GlobalKey<NavigatorState> rootNavigationkey =
 class HomeMenu extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final value = useProvider(helloProvider) ?? '';
     return Scaffold(
       appBar: AppBar(title: Text('homemenu')),
-      body: Column(
-        children: [
-          Text(value),
-          RaisedButton(
-            onPressed: () => rootNavigationkey.currentState.pushNamed('/login'),
-            child: Text('to login'),
-          ),
-          RaisedButton(
-            onPressed: () =>
-                homeNavigationkey.currentState.pushNamed('homeTab-submenu'),
-            child: Text('to submenu'),
-          ),
-        ],
+      body: Container(
+        margin: EdgeInsets.only(left: 10),
+        child: Column(
+          children: [
+            const Padding(padding: EdgeInsets.only(top: 10)),
+            Container(
+              child: Row(
+                children: [
+                  const Padding(padding: EdgeInsets.only(left: 10)),
+                  const Text('Todo List',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ],
+              ),
+            ),
+            TodoList(),
+            // RaisedButton(
+            //   onPressed: () => rootNavigationkey.currentState.pushNamed('/login'),
+            //   child: Text('to login'),
+            // ),
+            // RaisedButton(
+            //   onPressed: () =>
+            //       homeNavigationkey.currentState.pushNamed('homeTab-submenu'),
+            //   child: Text('to submenu'),
+            // ),
+          ],
+        ),
       ),
     );
   }
