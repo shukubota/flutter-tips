@@ -1,32 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_tips/state/state.dart';
 import 'package:flutter_tips/viewModels/todo.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final todoRegisterFormController = TextEditingController();
 
 class TodoList extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final todoViewModel = useProvider(todoListProvider);
-    print(todoViewModel.todoList);
+    final undoneTodoList = useProvider(undoneTodoListProvider);
     void onSubmitted(value) {
-      print(value);
-      print(todoViewModel);
-      todoViewModel.registerTodo(value);
+      if (value == '') return;
+      context.read(todoListProvider).registerTodo(value);
+      todoRegisterFormController.clear();
     }
 
     return Column(
       children: [
         TextField(
-          // onChanged: (e) => print(e),
+          controller: todoRegisterFormController,
           onSubmitted: onSubmitted,
         ),
         Container(
+          padding: EdgeInsets.only(top: 10),
           child: ListView(
             shrinkWrap: true,
             children: [
-              for (final todo in todoViewModel.todoList) TodoItem(todo: todo),
+              for (final todo in undoneTodoList) TodoItem(todo: todo),
             ],
           ),
         ),
@@ -54,11 +57,38 @@ class TodoItem extends HookWidget {
   final Todo todo;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Row(
-      children: [
-        Text(todo.title),
-      ],
-    ));
+    // final todoViewModel = useProvider(todoListProvider);
+    print(todo.title);
+    return Card(
+      margin: EdgeInsets.only(bottom: 10),
+      child: Slidable(
+        actionPane: SlidableDrawerActionPane(),
+        actionExtentRatio: 0.25,
+        child: ListTile(
+          title: Text(todo.title, style: TextStyle(fontSize: 24)),
+        ),
+        actions: todo.status == TodoStatus.UNDONE
+            ? [
+                IconSlideAction(
+                  caption: 'おわった',
+                  color: Colors.blue,
+                  icon: Icons.archive,
+                  onTap: () =>
+                      context.read(todoListProvider).completeTodo(todo.id),
+                )
+              ]
+            : null,
+        secondaryActions: [
+          IconSlideAction(
+            caption: 'けす',
+            color: Colors.grey,
+            icon: Icons.delete,
+            // onTap: () =>
+            //     todoViewModel.todoList[0] = Todo(id: 100, title: 'titleeeee'),
+            onTap: () => context.read(todoListProvider).deleteTodo(todo.id),
+          )
+        ],
+      ),
+    );
   }
 }
