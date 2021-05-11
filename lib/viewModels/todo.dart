@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum TodoStatus {
   UNDONE,
@@ -29,38 +29,43 @@ class Todo {
   }
 }
 
-class TodoViewModel extends ChangeNotifier {
-  List<Todo> _todoList = [];
+class TodoViewModel extends StateNotifier<List<Todo>> {
+  TodoViewModel() : super([]);
+  // List<Todo> _todoList = [];
 
   UnmodifiableListView<Todo> get todoList => UnmodifiableListView(
-      _todoList.where((item) => item.status == TodoStatus.UNDONE));
+      state.where((item) => item.status == TodoStatus.UNDONE));
   UnmodifiableListView<Todo> get completedTodoList => UnmodifiableListView(
-      _todoList.where((item) => item.status == TodoStatus.DONE));
+      state.where((item) => item.status == TodoStatus.DONE));
 
   void registerTodo(String title) {
     print(title);
-    final ids = _todoList.map((item) => item.id).toList();
+    print(state.map((item) => item.id).toList().length);
+    final ids = state.map((item) => item.id).toList();
+    print(ids);
     final newId = ids.length > 0 ? ids.reduce(max) + 1 : 1;
-    _todoList = [
-      ..._todoList,
+    print(newId);
+    state = [
+      ...state,
       Todo(id: newId, title: title, status: TodoStatus.UNDONE)
     ];
-    notifyListeners();
+    print(state);
+    // notifyListeners();
   }
 
   void deleteTodo(int todoId) {
-    _todoList = _todoList.where((item) => item.id != todoId).toList();
-    notifyListeners();
+    state = state.where((item) => item.id != todoId).toList();
+    // notifyListeners();
   }
 
   void completeTodo(int todoId) {
-    _todoList = [
-      for (final todo in _todoList)
+    state = [
+      for (final todo in state)
         if (todo.id == todoId)
           Todo(id: todoId, title: todo.title, status: TodoStatus.DONE)
         else
           todo
     ];
-    notifyListeners();
+    // notifyListeners();
   }
 }

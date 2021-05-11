@@ -11,7 +11,12 @@ final todoRegisterFormController = TextEditingController();
 class TodoList extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final undoneTodoList = useProvider(undoneTodoListProvider);
+    // final undoneTodoList = useProvider(undoneTodoListProvider);
+    final todoList = useProvider(todoListProvider);
+    final undoneTodoList = todoList.state;
+    print(todoList);
+    print('undoneTodolist');
+    // print(undoneTodoList);
     void onSubmitted(value) {
       if (value == '') return;
       context.read(todoListProvider).registerTodo(value);
