@@ -12,11 +12,8 @@ class TodoList extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // final undoneTodoList = useProvider(undoneTodoListProvider);
-    final todoList = useProvider(todoListProvider);
-    final undoneTodoList = todoList.state;
-    print(todoList);
-    print('undoneTodolist');
-    // print(undoneTodoList);
+    final todoList = useProvider(todoListProvider.state);
+    final undoneTodoList = todoList;
     void onSubmitted(value) {
       if (value == '') return;
       context.read(todoListProvider).registerTodo(value);
@@ -34,7 +31,11 @@ class TodoList extends HookWidget {
           child: ListView(
             shrinkWrap: true,
             children: [
-              for (final todo in undoneTodoList) TodoItem(todo: todo),
+              for (final todo in undoneTodoList)
+                TodoItem(
+                  todo: todo,
+                  key: GlobalKey(),
+                ),
             ],
           ),
         ),

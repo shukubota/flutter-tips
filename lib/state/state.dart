@@ -1,7 +1,10 @@
+import 'package:flutter_tips/viewModels/count.dart';
 import 'package:flutter_tips/viewModels/todo.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final todoListProvider = StateNotifierProvider((ref) => TodoViewModel());
+
+final countProvider = StateNotifierProvider((ref) => CountViewModel());
 
 // final undoneTodoListProvider = Provider((ref) => TodoViewModel().todoList);
 

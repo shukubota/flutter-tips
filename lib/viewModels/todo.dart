@@ -39,17 +39,12 @@ class TodoViewModel extends StateNotifier<List<Todo>> {
       state.where((item) => item.status == TodoStatus.DONE));
 
   void registerTodo(String title) {
-    print(title);
-    print(state.map((item) => item.id).toList().length);
     final ids = state.map((item) => item.id).toList();
-    print(ids);
     final newId = ids.length > 0 ? ids.reduce(max) + 1 : 1;
-    print(newId);
     state = [
       ...state,
       Todo(id: newId, title: title, status: TodoStatus.UNDONE)
     ];
-    print(state);
     // notifyListeners();
   }
 
@@ -59,6 +54,8 @@ class TodoViewModel extends StateNotifier<List<Todo>> {
   }
 
   void completeTodo(int todoId) {
+    print(todoId);
+    print('99999999');
     state = [
       for (final todo in state)
         if (todo.id == todoId)

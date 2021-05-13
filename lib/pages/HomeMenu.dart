@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_tips/components/Counter.dart';
 import 'package:flutter_tips/components/TodoList.dart';
 
 final GlobalKey<NavigatorState> rootNavigationkey =
@@ -16,7 +19,9 @@ class HomeMenu extends HookWidget {
         child: Column(
           children: [
             const Padding(padding: EdgeInsets.only(top: 10)),
+            CounterComponent(),
             TodoList(),
+
             // RaisedButton(
             //   onPressed: () => rootNavigationkey.currentState.pushNamed('/login'),
             //   child: Text('to login'),
