@@ -7,17 +7,19 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class CounterComponent extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final count = useProvider(countProvider.state);
-    final countViewModel = useProvider(countProvider);
+    final countState = useProvider(countProvider.state);
+    final countController = useProvider(countProvider);
     void onPressed() {
-      context.read(countProvider).plus();
+      // 同じ
+      // context.read(countProvider).plus();
+      countController.plus();
     }
 
     return Container(
       child: Row(
         children: [
           Container(
-            child: Text('counter: $count'),
+            child: Text('counter: ${countState.value}'),
           ),
           Padding(padding: EdgeInsets.only(right: 20)),
           ElevatedButton(onPressed: onPressed, child: Text('たす')),

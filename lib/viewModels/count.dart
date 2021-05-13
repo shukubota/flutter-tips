@@ -1,21 +1,27 @@
-import 'dart:collection';
-import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CountViewModel extends StateNotifier<int> {
-  CountViewModel() : super(0);
+@immutable
+class CountState {
+  CountState({
+    this.value = 0,
+  });
+  final int value;
+}
 
-  // UnmodifiableListView<Todo> get todoList => UnmodifiableListView(
-  //     state.where((item) => item.status == TodoStatus.UNDONE));
-  // UnmodifiableListView<Todo> get completedTodoList => UnmodifiableListView(
-  //     state.where((item) => item.status == TodoStatus.DONE));
+class CountController extends StateNotifier<CountState> {
+  CountController() : super(CountState());
 
-  void plus() {
-    state++;
-    print(state);
+  void plus() async {
+    // await sleep();
+    state = CountState(value: state.value + 1);
   }
 
   void minus() {
-    state = state - 1;
+    state = CountState(value: state.value - 1);
   }
+}
+
+Future<void> sleep() async {
+  await new Future.delayed(const Duration(seconds: 3));
 }

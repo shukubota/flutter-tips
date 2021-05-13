@@ -12,8 +12,7 @@ class TodoList extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // final undoneTodoList = useProvider(undoneTodoListProvider);
-    final todoList = useProvider(todoListProvider.state);
-    final undoneTodoList = todoList;
+    final todoList = useProvider(todoListProvider.state).undoneList;
     void onSubmitted(value) {
       if (value == '') return;
       context.read(todoListProvider).registerTodo(value);
@@ -31,7 +30,7 @@ class TodoList extends HookWidget {
           child: ListView(
             shrinkWrap: true,
             children: [
-              for (final todo in undoneTodoList)
+              for (final todo in todoList)
                 TodoItem(
                   todo: todo,
                   key: GlobalKey(),
@@ -39,11 +38,11 @@ class TodoList extends HookWidget {
             ],
           ),
         ),
-        Padding(padding: EdgeInsets.only(top: 10)),
         // Consumer(
         //   builder: (context, watch, child) {
-        //     final todos = watch(todoListProvider);
+        //     final todos = watch(todoListProvider.state).undoneList;
         //     return Container(
+        //       padding: EdgeInsets.only(top: 10),
         //       child: ListView(
         //         shrinkWrap: true,
         //         children: [
@@ -53,6 +52,7 @@ class TodoList extends HookWidget {
         //     );
         //   },
         // ),
+        Padding(padding: EdgeInsets.only(top: 10)),
       ],
     );
   }
@@ -63,8 +63,6 @@ class TodoItem extends HookWidget {
   final Todo todo;
   @override
   Widget build(BuildContext context) {
-    // final todoViewModel = useProvider(todoListProvider);
-    print(todo.title);
     return Card(
       margin: EdgeInsets.only(bottom: 10),
       child: Slidable(
@@ -89,8 +87,6 @@ class TodoItem extends HookWidget {
             caption: 'けす',
             color: Colors.grey,
             icon: Icons.delete,
-            // onTap: () =>
-            //     todoViewModel.todoList[0] = Todo(id: 100, title: 'titleeeee'),
             onTap: () => context.read(todoListProvider).deleteTodo(todo.id),
           )
         ],

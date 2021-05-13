@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum TodoStatus {
@@ -29,40 +30,48 @@ class Todo {
   }
 }
 
-class TodoViewModel extends StateNotifier<List<Todo>> {
-  TodoViewModel() : super([]);
-  // List<Todo> _todoList = [];
+@immutable
+class TodoListState {
+  TodoListState({
+    this.todoList,
+  });
+  final List<Todo> todoList;
+  List<Todo> get undoneList {
+    return todoList.where((item) => item.status == TodoStatus.UNDONE).toList();
+  }
 
-  UnmodifiableListView<Todo> get todoList => UnmodifiableListView(
-      state.where((item) => item.status == TodoStatus.UNDONE));
-  UnmodifiableListView<Todo> get completedTodoList => UnmodifiableListView(
-      state.where((item) => item.status == TodoStatus.DONE));
+  List<Todo> get doneList {
+    return todoList.where((item) => item.status == TodoStatus.DONE).toList();
+  }
+}
+
+class TodoController extends StateNotifier<TodoListState> {
+  TodoController() : super(TodoListState(todoList: []));
 
   void registerTodo(String title) {
-    final ids = state.map((item) => item.id).toList();
+    final ids = state.todoList.map((item) => item.id).toList();
     final newId = ids.length > 0 ? ids.reduce(max) + 1 : 1;
-    state = [
-      ...state,
-      Todo(id: newId, title: title, status: TodoStatus.UNDONE)
+    final newTodoList = [
+      ...state.todoList,
+      Todo(id: newId, title: title, status: TodoStatus.UNDONE),
     ];
-    // notifyListeners();
+    state = TodoListState(todoList: newTodoList);
   }
 
   void deleteTodo(int todoId) {
-    state = state.where((item) => item.id != todoId).toList();
-    // notifyListeners();
+    final newTodoList =
+        state.todoList.where((item) => item.id != todoId).toList();
+    state = TodoListState(todoList: newTodoList);
   }
 
   void completeTodo(int todoId) {
-    print(todoId);
-    print('99999999');
-    state = [
-      for (final todo in state)
+    final newTodoList = [
+      for (final todo in state.todoList)
         if (todo.id == todoId)
           Todo(id: todoId, title: todo.title, status: TodoStatus.DONE)
         else
           todo
     ];
-    // notifyListeners();
+    state = TodoListState(todoList: newTodoList);
   }
 }

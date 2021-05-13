@@ -13,17 +13,16 @@ final todoRegisterFormController = TextEditingController();
 class DoneTodoList extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    // final undoneTodoList = useProvider(undoneTodoListProvider);
-    final undoneTodoList = [];
+    final doneTodoList = useProvider(todoListProvider.state).doneList;
 
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(top: 10),
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: ListView(
             shrinkWrap: true,
             children: [
-              for (final todo in undoneTodoList) TodoItem(todo: todo),
+              for (final todo in doneTodoList) TodoItem(todo: todo),
             ],
           ),
         ),
