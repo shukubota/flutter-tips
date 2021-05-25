@@ -11,7 +11,6 @@ final todoRegisterFormController = TextEditingController();
 class TodoList extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    // final undoneTodoList = useProvider(undoneTodoListProvider);
     final todoList = useProvider(todoListProvider.state).undoneList;
     void onSubmitted(value) {
       if (value == '') return;
@@ -38,20 +37,6 @@ class TodoList extends HookWidget {
             ],
           ),
         ),
-        // Consumer(
-        //   builder: (context, watch, child) {
-        //     final todos = watch(todoListProvider.state).undoneList;
-        //     return Container(
-        //       padding: EdgeInsets.only(top: 10),
-        //       child: ListView(
-        //         shrinkWrap: true,
-        //         children: [
-        //           for (final todo in todos) TodoItem(todo: todo),
-        //         ],
-        //       ),
-        //     );
-        //   },
-        // ),
         Padding(padding: EdgeInsets.only(top: 10)),
       ],
     );
