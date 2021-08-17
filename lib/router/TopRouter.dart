@@ -1,3 +1,4 @@
+import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tips/pages/ProgressMenu.dart';
@@ -19,6 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    AudioCache _player = AudioCache();
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -49,6 +51,15 @@ class _MyHomePageState extends State<MyHomePage> {
             offstage: _tabIndex != 1,
             child: ProgressMenu(),
           ),
+          Container(
+            child: ElevatedButton(
+              child: Text('音鳴らす'),
+              onPressed: () {
+                print('aaaaaaaa');
+                _player.play('crrect_answer3.mp3');
+              },
+            ),
+          )
         ],
       ),
     );
