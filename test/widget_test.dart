@@ -26,7 +26,7 @@ class FakeRepository implements Repository {
 }
 
 class TodoItem extends HookWidget {
-  const TodoItem({Key key, this.todo}) : super(key: key);
+  const TodoItem({Key? key, required this.todo}) : super(key: key);
   final Todo todo;
   @override
   Widget build(BuildContext context) {

@@ -24,7 +24,7 @@ class HomeMenu extends HookWidget {
 
             ElevatedButton(
               onPressed: () =>
-                  homeNavigationkey.currentState.pushNamed('homeTab-submenu'),
+                  homeNavigationkey.currentState?.pushNamed('homeTab-submenu'),
               // rootNavigationkey.currentState.pushNamed('/login'),
               child: Text('to submenu'),
             ),

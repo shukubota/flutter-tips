@@ -21,7 +21,7 @@ class Complete extends StatelessWidget {
               Container(
                 child: ElevatedButton(
                   onPressed: () {
-                    rootNavigationkey.currentState.popUntil((route) {
+                    rootNavigationkey.currentState?.popUntil((route) {
                       print(route.settings.name);
                       return ['/selection', '/'].contains(route.settings.name);
                     });

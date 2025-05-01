@@ -1,4 +1,4 @@
-import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tips/pages/ProgressMenu.dart';
@@ -7,7 +7,7 @@ import '../main.dart';
 import 'navigators/HomeNavigator.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -26,11 +26,9 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('TODO'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
-            title: Text('DONE'),
           ),
         ],
         currentIndex: _tabIndex,
@@ -56,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('音鳴らす'),
               onPressed: () {
                 print('aaaaaaaa');
-                _player.play('crrect_answer3.mp3');
+                // _player.play('crrect_answer3.mp3');
               },
             ),
           )

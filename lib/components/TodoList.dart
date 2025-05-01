@@ -44,37 +44,37 @@ class TodoList extends HookWidget {
 }
 
 class TodoItem extends HookWidget {
-  TodoItem({Key key, this.todo}) : super(key: key);
+  TodoItem({Key? key, required this.todo}) : super(key: key);
   final Todo todo;
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.only(bottom: 10),
       child: Slidable(
-        actionPane: SlidableDrawerActionPane(),
-        actionExtentRatio: 0.25,
+        // endActionPane: SlidableDrawerActionPane(),
+        // actionExtentRatio: 0.25,
         child: ListTile(
           title: Text(todo.title, style: TextStyle(fontSize: 24)),
         ),
-        actions: todo.status == TodoStatus.UNDONE
-            ? [
-                IconSlideAction(
-                  caption: 'おわった',
-                  color: Colors.blue,
-                  icon: Icons.archive,
-                  onTap: () =>
-                      context.read(todoListProvider).completeTodo(todo.id),
-                )
-              ]
-            : null,
-        secondaryActions: [
-          IconSlideAction(
-            caption: 'けす',
-            color: Colors.grey,
-            icon: Icons.delete,
-            onTap: () => context.read(todoListProvider).deleteTodo(todo.id),
-          )
-        ],
+        // actions: todo.status == TodoStatus.UNDONE
+        //     ? [
+        //         IconSlideAction(
+        //           caption: 'おわった',
+        //           color: Colors.blue,
+        //           icon: Icons.archive,
+        //           onTap: () =>
+        //               context.read(todoListProvider).completeTodo(todo.id),
+        //         )
+        //       ]
+        //     : null,
+        // secondaryActions: [
+        //   IconSlideAction(
+        //     caption: 'けす',
+        //     color: Colors.grey,
+        //     icon: Icons.delete,
+        //     onTap: () => context.read(todoListProvider).deleteTodo(todo.id),
+        //   )
+        // ],
       ),
     );
   }

@@ -14,13 +14,13 @@ extension TodoStatusExtension on TodoStatus {
     TodoStatus.DOING: '着手中',
     TodoStatus.DONE: '完了',
   };
-  String get todoName => todoNames[this];
+  String? get todoName => todoNames[this];
 }
 
 class Todo {
-  int id;
-  String title;
-  TodoStatus status;
+  int id = 0;
+  String title = '';
+  TodoStatus status = TodoStatus.UNDONE;
   Todo({id, title, status}) {
     this.status = status ?? TodoStatus.UNDONE;
     this.title = title ?? '';
@@ -31,7 +31,7 @@ class Todo {
 @immutable
 class TodoListState {
   TodoListState({
-    this.todoList,
+    required this.todoList,
   });
   final List<Todo> todoList;
   List<Todo> get undoneList {

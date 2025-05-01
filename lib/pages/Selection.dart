@@ -21,7 +21,7 @@ class Selection extends StatelessWidget {
               Container(
                 child: ElevatedButton(
                   onPressed: () =>
-                      rootNavigationkey.currentState.pushNamed('/work'),
+                      rootNavigationkey.currentState?.pushNamed('/work'),
                   child: Text('toWork'),
                 ),
               )

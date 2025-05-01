@@ -20,7 +20,7 @@ class Work extends StatelessWidget {
               Container(
                 child: ElevatedButton(
                   onPressed: () => rootNavigationkey.currentState
-                      .pushReplacementNamed('/complete'),
+                      ?.pushReplacementNamed('/complete'),
                   child: Text('toComplete'),
                 ),
               )

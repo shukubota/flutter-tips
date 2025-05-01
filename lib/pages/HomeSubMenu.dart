@@ -13,12 +13,12 @@ class HomeSubMenu extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () =>
-                  rootNavigationkey.currentState.pushNamed('/selection'),
+                  rootNavigationkey.currentState?.pushNamed('/selection'),
               child: Text('to selection'),
             ),
             ElevatedButton(
               onPressed: () =>
-                  rootNavigationkey.currentState.pushNamed('/complete'),
+                  rootNavigationkey.currentState?.pushNamed('/complete'),
               child: Text('to complete'),
             ),
             // RaisedButton(
