@@ -26,9 +26,11 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
+            label: 'HOME',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
+            label: 'notifications',
           ),
         ],
         currentIndex: _tabIndex,
